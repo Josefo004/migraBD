@@ -4,7 +4,8 @@ require_once 'clase.Conex.php';
 
 class General {
 
-  public static function sqlPrb($conexion, $gestion, $carrera, $curso){
+  public static function getAsignaturasByPrograma($conexion, $gestion, $carrera, $curso)
+  {
     $sql = "DECLARE 
             @Gestion VARCHAR(6) = '$gestion',
             @Carrera TINYINT = '$carrera',
@@ -23,6 +24,26 @@ class General {
                 AND (ma.HorasTeoria is not NULL or ma.HorasPractica is not NULL or ma.HorasLaboratorio is not null)
               )";
     // echo $sql; exit();
+    $consulta = $conexion->prepare($sql);
+    $consulta->execute();
+    $arr = $consulta->errorInfo();
+    
+		if($arr[0]!='00000'){echo "\nPDOStatement::errorInfo():\n"; print_r($arr);}
+        $registros = $consulta->fetchAll();
+        if ($registros) {
+			return $registros;
+		} else {
+			return false;
+		};
+  }
+
+  public static function getIdAsignatura($conexion, $carrera, $siglaMateria, $curso)
+  {
+    $sql = "SELECT TOP 1 * FROM Edocente2021.dbo.pAsignatura 
+            WHERE CodigoCarrera = '$carrera'
+              AND SiglaMateria = '$siglaMateria'
+              AND Curso = '$curso'
+            ORDER BY NumeroPlanEstudios DESC";
     $consulta = $conexion->prepare($sql);
     $consulta->execute();
     $arr = $consulta->errorInfo();
