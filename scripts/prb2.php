@@ -1,20 +1,23 @@
 <?php
+set_time_limit(300);
 require('../clases/clase.General.php');
-for ($i=1; $i <= 1 ; $i++) { //carreras 
+$ii = 0;
+// for ($i=1; $i <= 40 ; $i++) { //carreras 
 // for ($i=41; $i <= 80 ; $i++) { //carreras 
-// for ($i=81; $i <= 116 ; $i++) { //carreras 
-  for ($j=1; $j <=1 ; $j++) { //cursos 
+for ($i=81; $i <= 116 ; $i++) { //carreras 
+  for ($j=1; $j <=12 ; $j++) { //cursos 
     $titulos = General::getForUpdate(Conexion::getInstancia(), $i, $j);
     if (!$titulos === false) {
       foreach ($titulos as $valor) {
         $id = $valor['IdTituloAsignatura'];
         $de = $valor['DET'];
+        $ii ++;
         //echo $valor['IdTituloAsignatura'].' - '.$valor['DET'].' <hr>';
         $re = General::UpdateTitulo(Conexion::getInstancia(), $id, $de);
-        if ($re == 1) { echo "UPDATED $re<br>"; }
-        else { echo "NOOOO UPDATED $id<br>"; }
+        if ($re > 0) { echo "$ii ACTUALIZADO ID: $id :<br>"; }
+        else { echo "$ii NOOOO!! UPDATED ID: $id : ".$valor['Titulo']."<br>"; }
       }
     }
   }
-  }
+}
 ?>

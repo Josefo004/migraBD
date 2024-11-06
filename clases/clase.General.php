@@ -119,10 +119,16 @@ class General {
 
   public static function UpdateTitulo($conexion, $id, $de)
   {
-    $sql = "UPDATE pTitulosAsignatura SET Desglose = $de WHERE IdTituloAsignatura = $id;";
-    $consulta = $conexion->prepare($sql);
-    $consulta->execute();
-    return $consulta->rowCount();
+    $re = 0;
+    if (!empty($de)) {
+      $sql = "UPDATE pTitulosAsignatura SET Desglose = '$de' WHERE IdTituloAsignatura = $id;";
+      $consulta = $conexion->prepare($sql);
+      $consulta->execute();
+      $arr = $consulta->errorInfo();
+      if($arr[0]!='00000'){echo "\nPDOStatement::errorInfo():\n"; print_r($arr);}
+      $re = $consulta->rowCount();
+    }
+    return $re;
   }
 
 }
