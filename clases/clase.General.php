@@ -131,5 +131,43 @@ class General {
     return $re;
   }
 
+  public static function getModulos($conexion, array $Asignatura)
+  {
+    $re = false;
+    if (!empty($Asignatura)) {
+      $idp = $Asignatura['IdPersona'];
+      $car = $Asignatura['Carrera'];
+      $sig = $Asignatura['SiglaMateria'];
+      $ges = $Asignatura['Gestion'];
+      $sql = "SELECT * FROM eDocente.dbo.prog_Modulo 
+              WHERE IdPersona = '$idp' AND Gestion = '$ges' AND SiglaMateria='$sig' AND Carrera=$car;";
+      echo $sql."<hr>";
+      $consulta = $conexion->prepare($sql);
+      $consulta->execute();
+      $arr = $consulta->errorInfo();
+      
+      if($arr[0]!='00000'){echo "\nPDOStatement::errorInfo():\n"; print_r($arr);}
+          $registros = $consulta->fetchAll();
+          if ($registros) {
+            return $registros;
+          }
+    }
+    return $re;
+  }
+
+  public static function InsertModulo($conexion, $ida, $mod)
+  {
+    $re = 0;
+    if (!empty($de)) {
+      $sql = "INSERT INTO pModulo (IdTituloAsignatura, Modulo) VALUES('$ida', '$mod');";
+      $consulta = $conexion->prepare($sql);
+      $consulta->execute();
+      $arr = $consulta->errorInfo();
+      if($arr[0]!='00000'){echo "\nPDOStatement::errorInfo():\n"; print_r($arr);}
+      $re = $consulta->rowCount();
+    }
+    return $re;
+  }
+
 }
 ?>
