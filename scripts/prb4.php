@@ -1,5 +1,5 @@
 <?php
-// para insertar modulos
+// para insertar temas de cada modulo
 set_time_limit(300);
 require('../clases/clase.General.php');
 $medicina = [
@@ -51,12 +51,12 @@ foreach ($medicina as $valor) {
     $kk = 0;
     foreach ($re as $value) {
       $kk ++;
-      $id = $value['IdModulo'];
-      $com = $value['Competencias'];
-      // echo $com.'<hr>';
-      $md = General::InsertModulo(Conexion::getInstancia(), $idt, $kk, $com);
-      if ($md > 0) { echo "ID MODULO BASE ANTIGUA :".$value['IdModulo'].'</br>'; }
-      else {echo "NO SE PUDO MIGRAR EL ID MODULO BASE ANTIGUA :".$value['IdModulo'].'</br>';}
+      // $id = $value['IdModulo'];
+      // $com = $value['Competencias'];
+      // // echo $com.'<hr>';
+      // $md = General::InsertModulo(Conexion::getInstancia(), $idt, $kk, $com);
+      // if ($md > 0) { echo "ID MODULO BASE ANTIGUA :".$value['IdModulo'].'</br>'; }
+      // else {echo "NO SE PUDO MIGRAR EL ID MODULO BASE ANTIGUA :".$value['IdModulo'].'</br>';}
     }
   }
 }

@@ -155,17 +155,18 @@ class General {
     return $re;
   }
 
-  public static function InsertModulo($conexion, $ida, $mod)
+  public static function InsertModulo($conexion, $ida, $ord, $mod)
   {
     $re = 0;
-    if (!empty($de)) {
-      $sql = "INSERT INTO pModulo (IdTituloAsignatura, Modulo) VALUES('$ida', '$mod');";
-      $consulta = $conexion->prepare($sql);
-      $consulta->execute();
-      $arr = $consulta->errorInfo();
-      if($arr[0]!='00000'){echo "\nPDOStatement::errorInfo():\n"; print_r($arr);}
-      $re = $consulta->rowCount();
-    }
+    
+    $sql = "INSERT INTO pModulo (IdTituloAsignatura, Orden, Modulo) VALUES($ida, $ord, '$mod')";
+    // echo $sql."<hr>"; exit();
+    $consulta = $conexion->prepare($sql);
+    $consulta->execute();
+    $arr = $consulta->errorInfo();
+    if($arr[0]!='00000'){echo "\nPDOStatement::errorInfo():\n"; print_r($arr);}
+    $re = $conexion->lastInsertId();
+    
     return $re;
   }
 
