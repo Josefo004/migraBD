@@ -141,7 +141,7 @@ class General {
       $ges = $Asignatura['Gestion'];
       $sql = "SELECT * FROM eDocente.dbo.prog_Modulo 
               WHERE IdPersona = '$idp' AND Gestion = '$ges' AND SiglaMateria='$sig' AND Carrera=$car;";
-      echo $sql."<hr>";
+      // echo $sql."<hr>";
       $consulta = $conexion->prepare($sql);
       $consulta->execute();
       $arr = $consulta->errorInfo();
