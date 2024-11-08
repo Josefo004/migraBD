@@ -207,5 +207,85 @@ class General {
     return $re;
   }
 
+  public static function getProgramasForPrototipo($conexion, $carrera, $curso)
+  {
+    $re = false; 
+    $sql = "WITH CTE AS
+            (
+              SELECT er.Descripcion, er.Relaciones, er.ObjetivoG, er.ObjetivosEspecificos, er.Indicaciones, er.Recursos, er.Actividades, er.Evaluacion, er.Bibliografia,
+              er.IdAsignatura, er.IdPersona, ID2=pa.IdAsignatura, er.Carrera, er.Gestion, er.SiglaMateria, pa.Curso, pa.TipoAsignatura,
+              ROW_NUMBER() OVER (PARTITION BY pa.IdAsignatura, er.Carrera, er.SiglaMateria, pa.Curso ORDER BY er.IdPersona) AS NumeroLinea
+              FROM Edocente2021.dbo.pAsignatura pa
+              JOIN eDocente.dbo.prog_ProgramaAsignatura er ON 
+                    pa.CodigoCarrera = er.Carrera
+                AND pa.SiglaMateria COLLATE Modern_Spanish_CI_AS = er.SiglaMateria
+                AND er.Gestion LIKE '%2023%'
+            )
+            SELECT 
+              distinct c.IdAsignatura, c.IdPersona, c.ID2, c.Carrera, c.Gestion, c.SiglaMateria, c.Curso, c.TipoAsignatura
+                      ,t.IdTituloAsignatura, t.Orden, t.EsContenido, t.Titulo
+            FROM CTE c
+            left JOIN pTitulosAsignatura t ON (c.ID2 = t.IdAsignatura)
+            WHERE c.NumeroLinea = 1
+              AND c.Carrera = $carrera
+              AND c.Curso = $curso
+              AND t.EsContenido = 'C'
+            ORDER BY Carrera, Curso ;";
+    // echo $sql."<hr>";
+    $consulta = $conexion->prepare($sql);
+    $consulta->execute();
+    $arr = $consulta->errorInfo();
+    if($arr[0]!='00000'){echo "\nPDOStatement::errorInfo():\n"; print_r($arr);}
+    $registros = $consulta->fetchAll();
+    if ($registros) {
+      return $registros;
+    }
+    return $re;
+  }
+
+  public static function getTemasFromPrograma($conexion, array $programa)
+  {
+    $re = false; 
+    if (count($programa) > 0) {
+      $IdPersona = $programa['IdPersona'];
+      $Gestion = $programa['Gestion'];
+      $SiglaMateria = $programa['SiglaMateria'];
+      $Carrera = $programa['Carrera'];
+      $sql = "SELECT * FROM edocente.dbo.prog_ContenidoMinimo 
+              WHERE IdPersona = '$IdPersona' AND Gestion = '$Gestion' AND SiglaMateria='$SiglaMateria' AND Carrera = $Carrera;";
+      // echo $sql."<hr>";
+      $consulta = $conexion->prepare($sql);
+      $consulta->execute();
+      $arr = $consulta->errorInfo();
+      if($arr[0]!='00000'){echo "\nPDOStatement::errorInfo():\n"; print_r($arr);}
+      $registros = $consulta->fetchAll();
+      if ($registros) {
+        return $registros;
+      }
+    }
+    return $re;
+  }
+
+  public static function InsertTemaForTitulo($conexion, array $tema, $IdTI, $ord)
+  {
+    $re = 0;
+    $Tema = $tema['Tema'];
+    $ObjetivoParticular = $tema['ObjetivoParticular']; 
+    $SistConocimientos = $tema['SistConocimientos']; 
+    $SistHabilidades = $tema['SistHabilidades']; 
+    $SistValores = $tema['SistValores'];
+
+    $sql = "INSERT INTO pTema(TemaDe, IdTituloAsignatura, Tema, ObjetivoParticular, SistConocimientos, SistHabilidades, SistValores, Orden) 
+            VALUES('T', $IdTI, '$Tema', '$ObjetivoParticular', '$SistConocimientos', '$SistHabilidades', '$SistValores', $ord)";
+    // echo $sql."<hr>"; exit();
+    $consulta = $conexion->prepare($sql);
+    $consulta->execute();
+    $arr = $consulta->errorInfo();
+    if($arr[0]!='00000'){echo "\nPDOStatement::errorInfo():\n"; print_r($arr);}
+    $re = $conexion->lastInsertId();
+    
+    return $re;
+  }
+
 }
 ?>
