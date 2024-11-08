@@ -170,5 +170,42 @@ class General {
     return $re;
   }
 
+  public static function getTemasFromModulo($conexion, $idm)
+  {
+    $re = false; 
+    $sql = "SELECT IdContenido, Tema, ObjetivoParticular, SistConocimientos, SistHabilidades, SistValores FROM eDocente.dbo.prog_ContenidoMinimo WHERE Grupo = $idm;";
+    // echo $sql."<hr>";
+    $consulta = $conexion->prepare($sql);
+    $consulta->execute();
+    $arr = $consulta->errorInfo();
+    if($arr[0]!='00000'){echo "\nPDOStatement::errorInfo():\n"; print_r($arr);}
+    $registros = $consulta->fetchAll();
+    if ($registros) {
+      return $registros;
+    }
+    return $re;
+  }
+
+  public static function InsertTemaForModulo($conexion, array $module, $idNM, $ord)
+  {
+    $re = 0;
+    $Tema = $module['Tema'];
+    $ObjetivoParticular = $module['ObjetivoParticular']; 
+    $SistConocimientos = $module['SistConocimientos']; 
+    $SistHabilidades = $module['SistHabilidades']; 
+    $SistValores = $module['SistValores'];
+
+    $sql = "INSERT INTO pTema(TemaDe, IdModulo, Tema, ObjetivoParticular, SistConocimientos, SistHabilidades, SistValores, Orden) 
+            VALUES('M', $idNM, '$Tema', '$ObjetivoParticular', '$SistConocimientos', '$SistHabilidades', '$SistValores', $ord)";
+    // echo $sql."<hr>"; exit();
+    $consulta = $conexion->prepare($sql);
+    $consulta->execute();
+    $arr = $consulta->errorInfo();
+    if($arr[0]!='00000'){echo "\nPDOStatement::errorInfo():\n"; print_r($arr);}
+    $re = $conexion->lastInsertId();
+    
+    return $re;
+  }
+
 }
 ?>

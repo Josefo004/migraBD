@@ -44,22 +44,41 @@ $medicina = [
   ['IdAsignatura' => 54447, 'IdPersona' => '3653356', 'ID2' => 36, 'Carrera' => 1, 'Gestion' => '2023', 'SiglaMateria' => 'MED810', 'Curso' => 5, 'TipoAsignatura' => 'M', 'IdTituloAsignatura' => 463],
   ['IdAsignatura' => 52774, 'IdPersona' => '1033018', 'ID2' => 32, 'Carrera' => 1, 'Gestion' => '2023', 'SiglaMateria' => 'CIR810', 'Curso' => 5, 'TipoAsignatura' => 'M', 'IdTituloAsignatura' => 411]
 ];
-foreach ($medicina as $valor) {
-  $re = General::getModulos(Conexion::getInstancia(), $valor);
-  if (!$re === false) {
-    $idt = $valor['IdTituloAsignatura'];
-    $kk = 0;
-    foreach ($re as $value) {
-      $kk ++;
-      // $id = $value['IdModulo'];
-      // $com = $value['Competencias'];
-      // // echo $com.'<hr>';
-      // $md = General::InsertModulo(Conexion::getInstancia(), $idt, $kk, $com);
-      // if ($md > 0) { echo "ID MODULO BASE ANTIGUA :".$value['IdModulo'].'</br>'; }
-      // else {echo "NO SE PUDO MIGRAR EL ID MODULO BASE ANTIGUA :".$value['IdModulo'].'</br>';}
+$Modulo = [
+  ['IdModulo' => 1, 'ID2' => 2793],	['IdModulo' => 2, 'ID2' => 2794],	['IdModulo' => 3, 'ID2' => 2795],	['IdModulo' => 4, 'ID2' => 2796],	['IdModulo' => 5, 'ID2' => 2797],	['IdModulo' => 6, 'ID2' => 2798],	['IdModulo' => 7, 'ID2' => 2597],	['IdModulo' => 8, 'ID2' => 2598],	['IdModulo' => 9, 'ID2' => 2612],	['IdModulo' => 10, 'ID2' => 2569],	['IdModulo' => 11, 'ID2' => 2570],	['IdModulo' => 12, 'ID2' => 2571],	['IdModulo' => 13, 'ID2' => 2572],	['IdModulo' => 14, 'ID2' => 2573],	['IdModulo' => 15, 'ID2' => 2574],	['IdModulo' => 16, 'ID2' => 2575],	['IdModulo' => 17, 'ID2' => 2576],	['IdModulo' => 18, 'ID2' => 2577],	['IdModulo' => 19, 'ID2' => 2578],	['IdModulo' => 20, 'ID2' => 2613],	['IdModulo' => 21, 'ID2' => 2614],	['IdModulo' => 22, 'ID2' => 2421],	['IdModulo' => 23, 'ID2' => 2422],	['IdModulo' => 24, 'ID2' => 2423],	['IdModulo' => 25, 'ID2' => 2424],	['IdModulo' => 26, 'ID2' => 2425],	['IdModulo' => 27, 'ID2' => 2426],	['IdModulo' => 28, 'ID2' => 2427],	['IdModulo' => 29, 'ID2' => 2428],	['IdModulo' => 30, 'ID2' => 2475],	['IdModulo' => 31, 'ID2' => 2485],	['IdModulo' => 32, 'ID2' => 2496],	['IdModulo' => 33, 'ID2' => 2367],	['IdModulo' => 34, 'ID2' => 2368],	['IdModulo' => 35, 'ID2' => 2369],	['IdModulo' => 36, 'ID2' => 2370],	['IdModulo' => 37, 'ID2' => 2371],	['IdModulo' => 38, 'ID2' => 2372],	['IdModulo' => 39, 'ID2' => 2373],	['IdModulo' => 40, 'ID2' => 2374],	['IdModulo' => 41, 'ID2' => 2716],	['IdModulo' => 42, 'ID2' => 2717],	['IdModulo' => 43, 'ID2' => 2718],	['IdModulo' => 44, 'ID2' => 2719],	['IdModulo' => 45, 'ID2' => 2720],	['IdModulo' => 46, 'ID2' => 2721],	['IdModulo' => 47, 'ID2' => 2722],	['IdModulo' => 48, 'ID2' => 2723],	['IdModulo' => 49, 'ID2' => 2792],	['IdModulo' => 50, 'ID2' => 2384],	['IdModulo' => 51, 'ID2' => 2385],	['IdModulo' => 52, 'ID2' => 2386],	['IdModulo' => 53, 'ID2' => 2387],	['IdModulo' => 54, 'ID2' => 2455],	['IdModulo' => 55, 'ID2' => 2456],	['IdModulo' => 56, 'ID2' => 2457],	['IdModulo' => 57, 'ID2' => 2458],	['IdModulo' => 58, 'ID2' => 2459],	['IdModulo' => 59, 'ID2' => 2460],	['IdModulo' => 60, 'ID2' => 2461],	['IdModulo' => 61, 'ID2' => 2498],	['IdModulo' => 62, 'ID2' => 2499],	['IdModulo' => 63, 'ID2' => 2500],	['IdModulo' => 64, 'ID2' => 2501],	['IdModulo' => 65, 'ID2' => 2502],	['IdModulo' => 66, 'ID2' => 2290],	['IdModulo' => 67, 'ID2' => 2291],	['IdModulo' => 68, 'ID2' => 2292],	['IdModulo' => 69, 'ID2' => 2293],	['IdModulo' => 70, 'ID2' => 2294],	['IdModulo' => 71, 'ID2' => 2295],	['IdModulo' => 72, 'ID2' => 2296],	['IdModulo' => 73, 'ID2' => 2297],	['IdModulo' => 74, 'ID2' => 2298],	['IdModulo' => 75, 'ID2' => 2299],	['IdModulo' => 76, 'ID2' => 2404],	['IdModulo' => 77, 'ID2' => 2405],	['IdModulo' => 78, 'ID2' => 2406],	['IdModulo' => 79, 'ID2' => 2407],	['IdModulo' => 80, 'ID2' => 2408],	['IdModulo' => 81, 'ID2' => 2409],	['IdModulo' => 82, 'ID2' => 2410],	['IdModulo' => 83, 'ID2' => 2412],	['IdModulo' => 84, 'ID2' => 2413],	['IdModulo' => 85, 'ID2' => 2609],	['IdModulo' => 86, 'ID2' => 2610],	['IdModulo' => 87, 'ID2' => 2324],	['IdModulo' => 88, 'ID2' => 2325],	['IdModulo' => 89, 'ID2' => 2326],	['IdModulo' => 90, 'ID2' => 2327],	['IdModulo' => 91, 'ID2' => 2328],	['IdModulo' => 92, 'ID2' => 2329],	['IdModulo' => 93, 'ID2' => 2330],	['IdModulo' => 94, 'ID2' => 2331],	['IdModulo' => 95, 'ID2' => 2332],	['IdModulo' => 96, 'ID2' => 2398],	['IdModulo' => 97, 'ID2' => 2399],	['IdModulo' => 98, 'ID2' => 2400],	['IdModulo' => 99, 'ID2' => 2401],	['IdModulo' => 100, 'ID2' => 2402],	['IdModulo' => 101, 'ID2' => 2403],	['IdModulo' => 102, 'ID2' => 2777],	['IdModulo' => 103, 'ID2' => 2778],	['IdModulo' => 104, 'ID2' => 2779],	['IdModulo' => 105, 'ID2' => 2780],	['IdModulo' => 106, 'ID2' => 2781],	['IdModulo' => 107, 'ID2' => 2528],	['IdModulo' => 108, 'ID2' => 2529],	['IdModulo' => 109, 'ID2' => 2530],	['IdModulo' => 110, 'ID2' => 2531],	['IdModulo' => 111, 'ID2' => 2532],	['IdModulo' => 112, 'ID2' => 2533],	['IdModulo' => 113, 'ID2' => 2534],	['IdModulo' => 114, 'ID2' => 2535],	['IdModulo' => 115, 'ID2' => 2351],	['IdModulo' => 116, 'ID2' => 2352],	['IdModulo' => 117, 'ID2' => 2353],	['IdModulo' => 118, 'ID2' => 2354],	['IdModulo' => 119, 'ID2' => 2355],	['IdModulo' => 120, 'ID2' => 2747],	['IdModulo' => 121, 'ID2' => 2748],	['IdModulo' => 122, 'ID2' => 2756],	['IdModulo' => 123, 'ID2' => 2606],	['IdModulo' => 124, 'ID2' => 2607],	['IdModulo' => 125, 'ID2' => 2608],	['IdModulo' => 126, 'ID2' => 2564],	['IdModulo' => 127, 'ID2' => 2565],	['IdModulo' => 128, 'ID2' => 2566],	['IdModulo' => 129, 'ID2' => 2567],	['IdModulo' => 130, 'ID2' => 2568],	['IdModulo' => 131, 'ID2' => 2644],	['IdModulo' => 132, 'ID2' => 2645],	['IdModulo' => 133, 'ID2' => 2646],	['IdModulo' => 134, 'ID2' => 2647],	['IdModulo' => 135, 'ID2' => 2550],	['IdModulo' => 136, 'ID2' => 2551],	['IdModulo' => 137, 'ID2' => 2751],	['IdModulo' => 138, 'ID2' => 2752],	['IdModulo' => 139, 'ID2' => 2755],	['IdModulo' => 140, 'ID2' => 2739],	['IdModulo' => 141, 'ID2' => 2740],	['IdModulo' => 142, 'ID2' => 2741],	['IdModulo' => 143, 'ID2' => 2742],	['IdModulo' => 144, 'ID2' => 2743],	['IdModulo' => 145, 'ID2' => 2744],	['IdModulo' => 146, 'ID2' => 2745],	['IdModulo' => 147, 'ID2' => 2746],	['IdModulo' => 148, 'ID2' => 2471],	['IdModulo' => 149, 'ID2' => 2472],	['IdModulo' => 150, 'ID2' => 2473],	['IdModulo' => 151, 'ID2' => 2474],	['IdModulo' => 152, 'ID2' => 2503],	['IdModulo' => 153, 'ID2' => 2706],	['IdModulo' => 154, 'ID2' => 2707],	['IdModulo' => 155, 'ID2' => 2708],	['IdModulo' => 156, 'ID2' => 2709],	['IdModulo' => 157, 'ID2' => 2710],	['IdModulo' => 158, 'ID2' => 2392],	['IdModulo' => 159, 'ID2' => 2393],	['IdModulo' => 160, 'ID2' => 2394],	['IdModulo' => 161, 'ID2' => 2395],	['IdModulo' => 162, 'ID2' => 2396],	['IdModulo' => 163, 'ID2' => 2397],	['IdModulo' => 164, 'ID2' => 2300],	['IdModulo' => 165, 'ID2' => 2301],	['IdModulo' => 166, 'ID2' => 2302],	['IdModulo' => 167, 'ID2' => 2303],	['IdModulo' => 168, 'ID2' => 2304],	['IdModulo' => 169, 'ID2' => 2305],	['IdModulo' => 170, 'ID2' => 2306],	['IdModulo' => 171, 'ID2' => 2307],	['IdModulo' => 172, 'ID2' => 2414],	['IdModulo' => 173, 'ID2' => 2415],	['IdModulo' => 174, 'ID2' => 2416],	['IdModulo' => 175, 'ID2' => 2417],	['IdModulo' => 176, 'ID2' => 2418],	['IdModulo' => 177, 'ID2' => 2419],	['IdModulo' => 178, 'ID2' => 2420],	['IdModulo' => 179, 'ID2' => 2341],	['IdModulo' => 180, 'ID2' => 2342],	['IdModulo' => 181, 'ID2' => 2343],	['IdModulo' => 182, 'ID2' => 2344],	['IdModulo' => 183, 'ID2' => 2345],	['IdModulo' => 184, 'ID2' => 2346],	['IdModulo' => 185, 'ID2' => 2347],	['IdModulo' => 186, 'ID2' => 2615],	['IdModulo' => 187, 'ID2' => 2616],	['IdModulo' => 188, 'ID2' => 2617],	['IdModulo' => 189, 'ID2' => 2618],	['IdModulo' => 190, 'ID2' => 2619],	['IdModulo' => 191, 'ID2' => 2620],	['IdModulo' => 192, 'ID2' => 2651],	['IdModulo' => 193, 'ID2' => 2652],	['IdModulo' => 194, 'ID2' => 2731],	['IdModulo' => 195, 'ID2' => 2732],	['IdModulo' => 196, 'ID2' => 2733],	['IdModulo' => 197, 'ID2' => 2734],	['IdModulo' => 198, 'ID2' => 2735],	['IdModulo' => 199, 'ID2' => 2736],	['IdModulo' => 200, 'ID2' => 2693],	['IdModulo' => 201, 'ID2' => 2694],	['IdModulo' => 202, 'ID2' => 2695],	['IdModulo' => 203, 'ID2' => 2348],	['IdModulo' => 204, 'ID2' => 2349],	['IdModulo' => 205, 'ID2' => 2350]
+];
+foreach ($Modulo as $valor) {
+  $idNM = $valor['IdModulo']; //IdNuevoModulo
+  $idMo = $valor['ID2'];      //IdModulo Antiguo
+  $temas = General::getTemasFromModulo(Conexion::getInstancia(), $idMo);
+  $kk = 0;
+  if (count($temas) > 0) {
+    foreach ($temas as $value) {
+      $idContenido = $value['IdContenido'];
+      $kk++;
+      $ITema = General::InsertTemaForModulo(Conexion::getInstancia(), $value, $idNM, $kk);
+      if ($ITema > 0) { echo "Tema de Modulo migrado IdContenido:$idContenido - IdNuevoModulo:$idNM - IdModulo Antiguo:$idMo <br>"; }
+      else{ echo "NOOOO! migrado IdContenido:$idContenido - IdNuevoModulo:$idNM - IdModulo Antiguo:$idMo <br>"; }
     }
   }
 }
+// $kk = 0;
+// foreach ($medicina as $valor) {
+//   $re = General::getModulos(Conexion::getInstancia(), $valor);
+//   if (!$re === false) {
+//     $idt = $valor['IdTituloAsignatura'];
+//     foreach ($re as $value) {
+//       $kk ++;
+//       $id = $value['IdModulo'];
+//       echo $kk." | ".$id."<br>";
+//       // $com = $value['Competencias'];
+//       // // echo $com.'<hr>';
+//       // $md = General::InsertModulo(Conexion::getInstancia(), $idt, $kk, $com);
+//       // if ($md > 0) { echo "ID MODULO BASE ANTIGUA :".$value['IdModulo'].'</br>'; }
+//       // else {echo "NO SE PUDO MIGRAR EL ID MODULO BASE ANTIGUA :".$value['IdModulo'].'</br>';}
+//     }
+//   }
+// }
 
 // echo '<pre>'.var_export($re,true).'</pre>'; 
 ?>
