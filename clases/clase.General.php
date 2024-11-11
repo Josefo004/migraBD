@@ -287,5 +287,62 @@ class General {
     return $re;
   }
 
+  public static function getTemasFromUnidadesA($conexion, $idU)
+  {
+    $re = false;
+    $sql = "SELECT IdUnidad, IdContenido FROM eDocente.dbo.prog_UnidadContenidoMinimo WHERE IdUnidad = $idU;";
+
+    $consulta = $conexion->prepare($sql);
+    $consulta->execute();
+    $arr = $consulta->errorInfo();
+    if($arr[0]!='00000'){echo "\nPDOStatement::errorInfo():\n"; print_r($arr);}
+    $registros = $consulta->fetchAll();
+    if ($registros) {
+      return $registros;
+    }
+
+    return $re;
+  }
+
+  public static function getTemasByID($conexion, $idT)
+  {
+    $re = false; 
+    $sql = "SELECT IdContenido, Tema, ObjetivoParticular FROM eDocente.dbo.prog_ContenidoMinimo WHERE IdContenido = $idT;";
+    // echo $sql."<hr>";
+    $consulta = $conexion->prepare($sql);
+    $consulta->execute();
+    $arr = $consulta->errorInfo();
+    if($arr[0]!='00000'){echo "\nPDOStatement::errorInfo():\n"; print_r($arr);}
+    $registros = $consulta->fetchAll();
+    if ($registros) {
+      return $registros;
+    }
+    return $re;
+  }
+
+  public static function InsertNuevaUnidad($conexion, array $unidadA, $IdTiA, $ord)
+  {
+    $re = 0;
+    $Descripcion = $unidadA['Descripcion'];
+    $Competencia = $unidadA['Competencia'];
+    $Actividades = $unidadA['Actividades'];
+    $Estrategias = $unidadA['Estrategias'];
+    $MediosEducativos = $unidadA['MediosEducativos'];
+    $Criterios = $unidadA['Criterios'];
+    $MediosVerificacion = $unidadA['MediosVerificacion'];
+
+    $sql = "INSERT INTO pUnidad(IdTituloAsignatura, Orden, Descripcion, Competencia, Actividades, Estrategias, MediosEducativos, Criterios, MediosVerificacion) VALUES($IdTiA, $ord, '$Descripcion', '$Competencia', '$Actividades', '$Estrategias', '$MediosEducativos', '$Criterios', '$MediosVerificacion')";
+    // echo $sql."<hr>"; exit();
+    $consulta = $conexion->prepare($sql);
+    $consulta->execute();
+    $arr = $consulta->errorInfo();
+    if($arr[0]!='00000'){echo "\nPDOStatement::errorInfo():\n"; print_r($arr);}
+    $re = $conexion->lastInsertId();
+    
+    return $re;
+  }
+  
+
+
 }
 ?>
